@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
   end
 
   def new
@@ -27,6 +26,17 @@ class UsersController < ApplicationController
   end
 
   def update
+    if  @user.name == params[:user][:name]
+      return redirect_to user_path(@user)
+    end
+
+    if User.find_by(name: params[:user][:name]).nil?
+      @user.update(user_params)
+      if @user.save
+        return redirect_to user_path(@user)
+      end
+    end
+    redirect_to edit_user_path(@user)
   end
 
   private
