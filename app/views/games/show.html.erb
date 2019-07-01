@@ -1,0 +1,19 @@
+<div class="row">
+  <h2 class="col"><%= @game.name %></h2>
+</div>
+
+<div class="row">
+  <h4 class="col"><%= @game.token_cost %> tokens.</h4>
+</div>
+
+<div class="row">
+  <%= form_tag "/play", method: "post" do %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :game_id, @game.id %>
+    <div class="form_group">
+      <%= select_tag :difficulty, options_for_select(%w[Easy Medium Hard]) %>
+    </div>
+    <br>
+    <%= button_tag "Play", class: "btn, btn-primary"%>
+  <% end %>
+</div>
