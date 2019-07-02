@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(name: params[:name])
-    return redirect_to root_url if @user.nil? || !@user.authenticate(params[:password])
+    return redirect_to root_url,
+                       notice: 'Username or password incorrect' if @user.nil? || !@user.authenticate(params[:password])
 
     session[:user_id] = @user.id
     redirect_to games_path

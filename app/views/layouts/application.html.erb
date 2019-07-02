@@ -27,6 +27,13 @@
         </div>
       </nav>
     <% end %>
+
+    <% flash.keys.each do |type| %>
+      <div style="color: red;" data-alert class="col text-center flash <%= type %> alert-box radius">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </div>
   </body>
