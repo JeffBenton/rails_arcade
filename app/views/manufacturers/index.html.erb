@@ -1,0 +1,7 @@
+<div class="row">
+  <% @manufacturers.each do |manufacturer| %>
+    <div class="col col-md-3">
+      <%= link_to manufacturer.name, manufacturer_path(manufacturer) %>
+    </div>
+  <% end %>
+</div>
