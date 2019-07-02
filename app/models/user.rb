@@ -3,7 +3,12 @@ class User < ApplicationRecord
   has_many :games, through: :plays
   has_secure_password
 
-  validates :name, presence: true, uniqueness: true, length: { in: 2..20}
+  validates :name, uniqueness: true, length: { in: 2..20}
   validates :password, presence: true
+
+  def validate_attribute(attr_name)
+    self.valid?
+    self.errors[attr_name].blank?
+  end
 
 end

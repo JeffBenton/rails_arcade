@@ -1,3 +1,14 @@
+<% if @user.errors[:name].present? %>
+  <div id="error_explanation">
+    <% @user.errors[:name].each do |msg| %>
+      <div style="color: red;" data-alert class="col text-center alert-box radius">
+        Name <%= msg %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+
 <div class="row">
   <div class="col offset-md-4 col-md-4">
     <%= form_for @user do |f| %>

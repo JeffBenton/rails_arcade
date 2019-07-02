@@ -13,12 +13,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.create(user_params)
-    if user.valid?
-      session[:user_id] = user.id
+    @user = User.create(user_params(:name, :password))
+    if @user.valid?
+      session[:user_id] = @user.id
       redirect_to games_path
     else
-      return redirect_to root
+      render :new
     end
   end
 
@@ -30,13 +30,13 @@ class UsersController < ApplicationController
       return redirect_to user_path(@user)
     end
 
-    if User.find_by(name: params[:user][:name]).nil?
-      @user.update(user_params)
-      if @user.save
-        return redirect_to user_path(@user)
-      end
+    @user.update(user_params(:name))
+    if @user.validate_attribute(:name)
+      @user.save(validate: false)
+      redirect_to user_path(@user)
+    else
+      render :edit
     end
-    redirect_to edit_user_path(@user)
   end
 
   private
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:name, :password)
+  def user_params(*args)
+    params.require(:user).permit(*args)
   end
 end
