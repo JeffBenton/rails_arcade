@@ -18,5 +18,4 @@ class PlaysController < ApplicationController
   def plays_params
     params.require(:plays).permit(:game_id, :difficulty, :user_id)
   end
-
 end

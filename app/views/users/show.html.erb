@@ -13,9 +13,19 @@
 <div class="row">
   <div class="col col-md-6">
     <h3>Games</h3>
+    <% @user.games.order(name: :asc).each do |game| %>
+      <div class="row">
+        <p><%= link_to game.name, game_path(game) %></p>
+      </div>
+    <% end %>
   </div>
 
   <div class="col col-md-6">
     <h3>Plays</h3>
+    <% @user.plays.order(:desc).each do |play| %>
+      <div class="row">
+        <p><%= "#{play.game.name} on #{play.difficulty}" %></p>
+      </div>
+    <% end %>
   </div>
 </div>

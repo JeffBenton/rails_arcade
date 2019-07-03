@@ -12,7 +12,9 @@ Manufacturer.destroy_all
 Play.destroy_all
 
 def create_user
-  User.create(name: Faker::Name.name, password_digest: "asdf", tokens: rand(50..100))
+  x = User.new(name: Faker::Name.name, password_digest: "asdf", tokens: rand(50..100))
+  x.save(validate: false)
+  x
 end
 
 def create_game(manufacturer)
