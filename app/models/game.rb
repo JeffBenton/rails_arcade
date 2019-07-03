@@ -7,4 +7,6 @@ class Game < ApplicationRecord
   validates :token_cost, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   accepts_nested_attributes_for :manufacturer, reject_if: :all_blank
+
+  scope :playable, ->(tokens) { where("token_cost <= ?", tokens)}
 end
