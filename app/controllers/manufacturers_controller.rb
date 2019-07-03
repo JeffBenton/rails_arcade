@@ -13,8 +13,12 @@ class ManufacturersController < ApplicationController
   end
 
   def create
-    manufacturer = Manufacturer.create(manufacturer_params)
-    redirect_to manufacturer
+    @manufacturer = Manufacturer.create(manufacturer_params)
+    if @manufacturer.valid?
+      redirect_to manufacturer_path(@manufacturer)
+    else
+      render :new
+    end
   end
 
   def edit
@@ -22,10 +26,10 @@ class ManufacturersController < ApplicationController
 
   def update
     @manufacturer.update(manufacturer_params)
-    if @manufacturer.save
+    if @manufacturer.valid?
       redirect_to manufacturer_path(@manufacturer)
     else
-      return redirect_to edit_manufacturer_path(@manufacturer)
+      render :edit
     end
   end
 
