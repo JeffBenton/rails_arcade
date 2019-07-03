@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @games = Game.all
+    params[:manufacturer_id].nil? ? @games = Game.all : @games = Manufacturer.find_by(id: params[:manufacturer_id]).games
   end
 
   def show
