@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :find_game, only: [:show, :edit, :update]
+  before_action :require_logged_in
 
   def index
     @games = Game.all

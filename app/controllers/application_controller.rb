@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
     session[:user_id].present?
   end
 
+  def require_logged_in
+    redirect_to root_url unless is_logged_in?
+  end
+
 end

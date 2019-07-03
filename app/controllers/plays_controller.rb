@@ -1,4 +1,6 @@
 class PlaysController < ApplicationController
+  before_action :require_logged_in
+
   def show
     @play = Play.find_by(id: params[:id])
   end
