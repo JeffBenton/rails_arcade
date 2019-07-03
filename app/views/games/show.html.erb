@@ -2,6 +2,7 @@
   <h2 class="col col-md-10"><%= @game.name %></h2>
   <% if current_user.admin %>
     <%= button_to "Edit", edit_game_path(@game), method: 'get', class: "btn btn-primary"%>
+    <%= button_to "Delete", game_path(@game), method: 'delete', class: "btn btn-danger"%>
   <% end %>
 </div>
 

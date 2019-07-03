@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_action :find_game, only: [:show, :edit, :update]
   before_action :require_logged_in
-  before_action :require_admin, only: [:new, :create, :edit, :update]
+  before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @games = Game.all
@@ -33,6 +33,12 @@ class GamesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    Game.destroy(params[:id])
+    Play.where(game_id: params[:id]).destroy_all
+    redirect_to games_path
   end
 
   private
