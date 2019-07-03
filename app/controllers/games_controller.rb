@@ -13,8 +13,12 @@ class GamesController < ApplicationController
   end
 
   def create
-    game = Game.create(game_params)
-    redirect_to game
+    @game = Game.create(game_params)
+    if @game.valid?
+      redirect_to @game
+    else
+      render :new
+    end
   end
 
   def edit
@@ -22,10 +26,10 @@ class GamesController < ApplicationController
 
   def update
     @game.update(game_params)
-    if @game.save
+    if @game.valid?
       redirect_to game_path(@game)
     else
-      return redirect_to edit_game_path(@game)
+      render :edit
     end
   end
 

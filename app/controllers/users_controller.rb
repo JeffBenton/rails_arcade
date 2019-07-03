@@ -26,10 +26,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    if  @user.name == params[:user][:name]
-      return redirect_to user_path(@user)
-    end
-
     @user.update(user_params(:name))
     if @user.validate_attribute(:name)
       @user.save(validate: false)

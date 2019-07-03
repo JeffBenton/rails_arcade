@@ -1,3 +1,13 @@
+<% if @game.errors.any? %>
+  <div id="error_explanation">
+    <% @game.errors.full_messages.each do |msg| %>
+      <div style="color: red;" data-alert class="col text-center alert-box radius">
+        <%= msg %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="col offset-md-4 col-md-4">
     <%= form_for @game do |f| %>
@@ -13,7 +23,7 @@
       <br>
       <div class="form-group">
         <%= f.label :manufacturer %>
-        <%= collection_select :manufacturer, :id, Manufacturer.all, :id, :name, include_blank: 'Choose a Manufacturer' %>
+        <%= collection_select :game, :manufacturer_id, Manufacturer.all, :id, :name, include_blank: 'Choose a Manufacturer' %>
       </div>
 
       <h4>Or create a new manufacturer</h4>
