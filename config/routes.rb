@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :new, :create, :edit, :update]
   resources :games, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :manufacturers, only: [:index, :show, :new, :create, :edit, :update] do
-    resources :games, only: [:index, :new, :create]
+    resources :games, only: [:index, :new]
   end
   resources :plays, only: [:show]
   root 'sessions#new'

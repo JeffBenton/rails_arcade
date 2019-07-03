@@ -6,6 +6,10 @@
 </div>
 
 <div class="row">
+  <%= link_to "Create Game", new_manufacturer_game_path(@manufacturer) %>
+</div>
+
+<div class="row">
   <div class="col">
     <% @manufacturer.games.each do |game| %>
       <%= link_to game.name, game_path(game), class: 'row' %>
