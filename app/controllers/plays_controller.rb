@@ -5,11 +5,11 @@ class PlaysController < ApplicationController
 
   def create
     play = Play.create(plays_params)
-    play.play_game
-    if play.save
+    if play.valid?
+      play.play_game
       redirect_to play_path(play)
     else
-      return redirect_to game_path(play.game)
+      return redirect_to game_path(play.game), notice: "Insufficient tokens"
     end
   end
 

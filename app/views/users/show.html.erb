@@ -22,7 +22,7 @@
 
   <div class="col col-md-6">
     <h3>Plays</h3>
-    <% @user.plays.order(:desc).each do |play| %>
+    <% @user.plays.order(id: :desc).each do |play| %>
       <div class="row">
         <p><%= "#{play.game.name} on #{play.difficulty}" %></p>
       </div>
