@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless is_logged_in?
   end
 
+  def require_admin
+    redirect_to games_path unless current_user.admin
+  end
+
 end

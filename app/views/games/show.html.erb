@@ -1,5 +1,8 @@
 <div class="row">
-  <h2 class="col"><%= @game.name %></h2>
+  <h2 class="col col-md-10"><%= @game.name %></h2>
+  <% if current_user.admin %>
+    <%= button_to "Edit", edit_game_path(@game), method: 'get', class: "btn btn-primary"%>
+  <% end %>
 </div>
 
 <div class="row">
@@ -15,6 +18,6 @@
       <%= select_tag 'plays[difficulty]', options_for_select(%w[Easy Medium Hard]) %>
     </div>
     <br>
-    <%= button_tag "Play", class: "btn, btn-primary"%>
+    <%= button_tag "Play", class: "btn btn-primary"%>
   <% end %>
 </div>

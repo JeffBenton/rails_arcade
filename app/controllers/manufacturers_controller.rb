@@ -1,6 +1,7 @@
 class ManufacturersController < ApplicationController
   before_action :find_manufacturer, only: [:show, :edit, :update]
   before_action :require_logged_in
+  before_action :require_admin, only: [:new, :create, :edit, :update]
 
   def index
     @manufacturers = Manufacturer.all
