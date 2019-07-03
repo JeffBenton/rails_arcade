@@ -27,8 +27,7 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params(:name))
-    if @user.validate_attribute(:name)
-      @user.save(validate: false)
+    if @user.valid?
       redirect_to user_path(@user)
     else
       render :edit
