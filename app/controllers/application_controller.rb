@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    redirect_to games_path unless current_user.admin
+    redirect_to games_path, notice: "You don't have permission to do that" unless current_user.admin
   end
 
 end

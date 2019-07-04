@@ -24,6 +24,8 @@ class UsersController < ApplicationController
   end
 
   def edit
+    return redirect_to user_path(params[:id]), notice: "You don't have permission to do that" unless params[:id].to_i == session[:user_id]
+    return redirect_to user_path(params[:id]), notice: "You cannot edit your facebook login" if current_user.uid.present?
   end
 
   def update
