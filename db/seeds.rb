@@ -11,31 +11,24 @@ Game.destroy_all
 Manufacturer.destroy_all
 Play.destroy_all
 
-def create_user
-  x = User.new(name: Faker::Name.name, password_digest: "asdf", tokens: rand(50..100))
-  x.save(validate: false)
-  x
-end
 
-def create_game(manufacturer)
-  Game.create(name: Faker::Game.title, token_cost: rand(10..20), manufacturer_id: manufacturer.id)
+def create_game(name, manufacturer)
+  Game.create(name: name, token_cost: rand(10..20), manufacturer_id: manufacturer.id)
 end
 
 def create_manufacturer
   Manufacturer.create(name: Faker::Company.name)
 end
 
-def create_play(user, game, quantity=1)
-  Play.create(user_id: user.id, game_id: game.id, quantity: quantity)
-end
-
-users = []
-games = []
 manufacturers = []
 (1..2).each do
   manufacturers << create_manufacturer
 end
-(1..5).each do
-  users << create_user
-  games << create_game(manufacturers[rand(0..1)])
-end
+
+create_game("Skee Ball", manufacturers[rand(0..1)])
+create_game("Pinball", manufacturers[rand(0..1)])
+create_game("Whack-A-Mole", manufacturers[rand(0..1)])
+create_game("Dance Dance Revolution", manufacturers[rand(0..1)])
+create_game("Air Hockey", manufacturers[rand(0..1)])
+create_game("Time Crisis", manufacturers[rand(0..1)])
+

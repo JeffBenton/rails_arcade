@@ -1,24 +1,20 @@
-# README
+# Rails_Arcade
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a virtual arcade where users can spend tokens to play arcade games.
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+To install this application - 
+- git clone this repo
+- cd rails_arcade
+- bundle install
 
-* System dependencies
+To start the application
+- rails s
+- open a web browser and navigate to localhost:3000
 
-* Configuration
+## Usage
 
-* Database creation
+- Log in with existing user credentials, or follow the link to sign up
+- Navigate to games to play them.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

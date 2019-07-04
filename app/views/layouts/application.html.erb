@@ -21,7 +21,7 @@
             <%= link_to "Manufacturers", manufacturers_path, class: "nav-item nav-link" %>
           </div>
           <div class="navbar-nav">
-            <%= link_to "Profile", user_path(session[:user_id]), class: "nav-item nav-link" %>
+            <%= link_to "(#{current_user.tokens}) Profile", user_path(session[:user_id]), class: "nav-item nav-link" %>
             <%= link_to "Log Out", signout_path, method: :delete, class: "nav-item nav-link" %>
           </div>
         </div>
