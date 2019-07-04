@@ -6,9 +6,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(name: params[:name])
-    return redirect_to root_url,
-                       notice: 'Username or password incorrect' if @user.nil? || !@user.authenticate(params[:password])
+    if auth.present?
+      @user = User.find_or_initialize_by(uid: auth['uid']) do |u|
+        u.name = auth['info']['name']
+      end
+      @user.save(validate: false) if @user.new_record?
+    else
+      @user = User.find_by(name: params[:name])
+      return redirect_to root_url,
+                         notice: 'Username or password incorrect' if @user.nil? || !@user.authenticate(params[:password])
+    end
 
     session[:user_id] = @user.id
     redirect_to games_path
@@ -17,5 +24,11 @@ class SessionsController < ApplicationController
   def destroy
     session.delete :user_id
     redirect_to root_url
+  end
+
+  private
+
+  def auth
+    request.env['omniauth.auth']
   end
 end

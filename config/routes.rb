@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :plays, only: [:show]
   root 'sessions#new'
 
+  get '/auth/facebook/callback', to: 'sessions#create'
   post '/signin', to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy'
 
