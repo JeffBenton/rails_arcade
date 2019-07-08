@@ -1,12 +1,5 @@
-<% if @manufacturer.errors.any? %>
-  <div id="error_explanation">
-    <% @manufacturer.errors.full_messages.each do |msg| %>
-      <div style="color: red;" data-alert class="col text-center alert-box radius">
-        <%= msg %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+
+<%= render partial: "layouts/errors", locals: { issue: @manufacturer } %>
 
 <div class="row">
   <div class="col offset-md-4 col-md-4">
