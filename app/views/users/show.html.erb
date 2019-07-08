@@ -2,7 +2,7 @@
   <div class="col col-md-10">
     <h3>Name: <%= @user.name %></h3>
   </div>
-  <% if @user.id == session[:user_id] %>
+  <% if @user.id == session[:user_id] && !facebook_user? %>
     <%= button_to "Edit", edit_user_path(@user), method: 'get', class: "btn btn-primary"%>
   <% end %>
 </div>
