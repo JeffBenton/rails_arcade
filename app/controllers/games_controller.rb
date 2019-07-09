@@ -5,18 +5,27 @@ class GamesController < ApplicationController
 
   def index
     params[:manufacturer_id].nil? ? @games = Game.all : @games = Manufacturer.find_by(id: params[:manufacturer_id]).games
+
+    # @all_games = Game.all.order(name: :asc)
+    # @playable_game = Game.playable(current_user.tokens)
+  end
+
+
+  def cheapest
+    @games = Game.cheapest
   end
 
   def show
   end
+
 
   def new
     @game = Game.new(manufacturer_id: params[:manufacturer_id])
   end
 
   def create
-    @game = Game.create(game_params)
-    if @game.valid?
+    @game = Game.new(game_params)
+    if @game.save
       redirect_to @game
     else
       render :new

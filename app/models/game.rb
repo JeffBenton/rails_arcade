@@ -9,4 +9,5 @@ class Game < ApplicationRecord
   accepts_nested_attributes_for :manufacturer, reject_if: :all_blank
 
   scope :playable, ->(tokens) { where("token_cost <= ?", tokens).order(name: :asc)}
+  scope :cheapest, ->() { order(token_cost: :asc).limit(3) }
 end
