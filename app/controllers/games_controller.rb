@@ -2,7 +2,6 @@ class GamesController < ApplicationController
   before_action :find_game, only: [:show, :edit, :update]
   before_action :require_logged_in
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
-  after_action :clear_edit_id, only: [:update]
 
   def index
     params[:manufacturer_id].nil? ? @games = Game.all : @games = Manufacturer.find_by(id: params[:manufacturer_id]).games
@@ -29,10 +28,14 @@ class GamesController < ApplicationController
   end
 
   def update
-    return redirect_to game_path(session[:edit_id]), notice: "You can't do that" unless session[:edit_id] == params[:id]
+    if session[:edit_id] != params[:id]
+      clear_edit_id
+      return redirect_to game_path(session[:edit_id]), notice: "You can't do that"
+    end
 
     @game.update(game_params)
     if @game.valid?
+      clear_edit_id
       redirect_to game_path(@game)
     else
       render :edit

@@ -1,13 +1,4 @@
-<% if @user.errors[:name].present? %>
-  <div id="error_explanation">
-    <% @user.errors[:name].each do |msg| %>
-      <div style="color: red;" data-alert class="col text-center alert-box radius">
-        Name <%= msg %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
+<%= render partial: "layouts/errors", locals: { issue: @user } %>
 
 <div class="row">
   <div class="col offset-md-4 col-md-4">
