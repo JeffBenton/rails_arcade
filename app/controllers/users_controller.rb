@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update]
   before_action :require_logged_in, except: [:new, :create]
   helper_method :facebook_user?
+  after_action :clear_edit_id, only: [:update]
 
   def index
     @users = User.all
@@ -27,9 +28,12 @@ class UsersController < ApplicationController
   def edit
     return redirect_to user_path(params[:id]), notice: "You don't have permission to do that" unless params[:id].to_i == session[:user_id]
     return redirect_to user_path(params[:id]), notice: "You cannot edit your facebook login" if facebook_user?
+    session[:edit_id] = params[:id]
   end
 
   def update
+    return redirect_to user_path(session[:edit_id]), notice: "You can't do that" unless session[:edit_id] == params[:id]
+
     @user.update(user_params(:name))
     if @user.valid?
       redirect_to user_path(@user)

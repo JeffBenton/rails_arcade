@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :is_logged_in?, :require_logged_in, :require_admin
+  helper_method :current_user, :is_logged_in?, :require_logged_in, :require_admin, :clear_edit_id
 
   def current_user
     if is_logged_in?
@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     redirect_to games_path, notice: "You don't have permission to do that" unless current_user.admin
+  end
+
+  def clear_edit_id
+    session.delete :edit_id
   end
 
 end

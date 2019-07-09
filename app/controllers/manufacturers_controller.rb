@@ -2,6 +2,7 @@ class ManufacturersController < ApplicationController
   before_action :find_manufacturer, only: [:show, :edit, :update]
   before_action :require_logged_in
   before_action :require_admin, only: [:new, :create, :edit, :update]
+  after_action :clear_edit_id, only: [:update]
 
   def index
     @manufacturers = Manufacturer.all
@@ -24,9 +25,12 @@ class ManufacturersController < ApplicationController
   end
 
   def edit
+    session[:edit_id] = params[:id]
   end
 
   def update
+    return redirect_to manufacturer_path(session[:edit_id]), notice: "You can't do that" unless session[:edit_id] == params[:id]
+
     @manufacturer.update(manufacturer_params)
     if @manufacturer.valid?
       redirect_to manufacturer_path(@manufacturer)
